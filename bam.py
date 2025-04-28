@@ -39,12 +39,12 @@ import asyncio
 import itertools
 import bamnostic
 
-from ggoogle.spanner.acore import SpannerAsyncHelper
-from utils.utils import GraphUtils
+"""from ggoogle.spanner.acore import SpannerAsyncHelper
+from utils.utils import GraphUtils"""
 
 
 class BAMReadsProcessor(
-    SpannerAsyncHelper
+    #SpannerAsyncHelper
 ):
 
 
@@ -55,11 +55,11 @@ class BAMReadsProcessor(
     """
 
     def __init__(self, bam_path, table):
-        SpannerAsyncHelper.__init__(self)
+        #SpannerAsyncHelper.__init__(self)
         self.ref_file_ckpt = "ref_file_ckpt.json"
         self.bam_path = bam_path
 
-        self.g_utils = GraphUtils(table_name=table, upload_to="bq")
+        self.g_utils = None #GraphUtils(table_name=table, upload_to="bq")
         self.all_ids = self.g_utils.get_ids()
 
         print("create bam object from", bam_path)
