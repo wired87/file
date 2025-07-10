@@ -13,10 +13,10 @@ def zip_tempdir(tempdir_path, zip_dest: BytesIO or str):
                 rel_path = os.path.relpath(abs_path, tempdir_path)  # ZIP: relative Pfade
                 zf.write(abs_path, arcname=rel_path)  # Inhalt + Pfadstruktur erhalten
                 print(f"Transfered file {file} to zip-buffer")
+
     if isinstance(zip_dest, BytesIO):
         size = len(zip_dest.getvalue())
         print(f"Buffer-size: {size} Bytes")
         print("Mark buffer as OK")
-        zip_dest.seek(0)
 
     rm_tmp(tempdir_path)
