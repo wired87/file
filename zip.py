@@ -1,4 +1,5 @@
 import os
+import shutil
 import zipfile
 from io import BytesIO
 
@@ -20,3 +21,12 @@ def zip_tempdir(tempdir_path, zip_dest: BytesIO or str):
         print("Mark buffer as OK")
 
     rm_tmp(tempdir_path)
+
+
+
+def _create_zip_archive(zip_name_without_tag, src_origin, rm_src_origin=True):
+    zip_path = shutil.make_archive(zip_name_without_tag, 'zip', src_origin)
+    bz_content = open(zip_path, "rb")
+    if rm_src_origin is True:
+        rm_tmp(src_origin)
+    return bz_content
