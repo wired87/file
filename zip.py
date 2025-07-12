@@ -25,8 +25,9 @@ def zip_tempdir(tempdir_path, zip_dest: BytesIO or str):
 
 
 def _create_zip_archive(zip_name_without_tag, src_origin, rm_src_origin=True):
-    zip_path = shutil.make_archive(zip_name_without_tag, 'zip', src_origin)
+    zip_path = shutil.make_archive(src_origin, 'zip', src_origin)
     bz_content = open(zip_path, "rb")
     if rm_src_origin is True:
         rm_tmp(src_origin)
+    print("zip archive created")
     return bz_content
