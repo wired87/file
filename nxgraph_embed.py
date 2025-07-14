@@ -1,12 +1,12 @@
 from google.cloud import storage
 from torch_geometric.nn import Node2Vec
 
+from utils.embedder import get_embedder
 from utils.file import BUCKET_NAME, OUTPUT_FOLDER
 import networkx as nx
 import numpy as np
 import json
 
-from gnn.embedder import get_embedder
 
 
 class GraphEmbeddingConverter:
