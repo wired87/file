@@ -10,5 +10,5 @@ def load_yaml(filepath) -> dict:
 def write_yaml(content:dict, dest):
     print("Write yaml content to dest", dest)
     yml_content = yaml.dump(content, default_flow_style=False, sort_keys=False)
-    with open(dest, 'r', encoding="utf-8") as f:
+    with open(dest, 'w', encoding="utf-8") as f:
         f.write(yml_content)
