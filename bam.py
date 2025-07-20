@@ -1,6 +1,6 @@
 """
 
-{'_io': <bamnostic.core.AlignmentFile object at 0x0000014C2CE31100>,
+{'_io': <bamnostic.base.AlignmentFile object at 0x0000014C2CE31100>,
  '_byte_stream': bytearray(b''),
  '_raw_stream': bytearray(b'\x0f\x01\x00\x004\x00\x00\x00\x8aM\x00\x00'
                           b'$\x00J\x12\x01\x00\x10\x00P\x00\x00\x00'...
