@@ -8,6 +8,8 @@ def dict_2_csv(data:list[dict], keys):
         writer.writeheader()
         writer.writerows(data)
 
+def collect_keys(dict_list):
+    return set().union(*(d.keys() for d in dict_list))
 
 def dict_2_csv_buffer(data: list[dict], keys, save_dir) -> None:
     """
@@ -23,3 +25,5 @@ def dict_2_csv_buffer(data: list[dict], keys, save_dir) -> None:
     # Write csv directly to save (local, or tmp)
     with open(save_dir, "w", encoding="utf-8") as f:
         f.write(str_buf.getvalue())
+
+
