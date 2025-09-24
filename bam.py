@@ -39,12 +39,12 @@ import asyncio
 import itertools
 import bamnostic
 
-"""from ggoogle.spanner.acore import SpannerAsyncHelper
+"""from ggoogle.spanner.acore import ASpannerManager
 from utils.utils import GraphUtils"""
 
 
 class BAMReadsProcessor(
-    #SpannerAsyncHelper
+    #ASpannerManager
 ):
 
 
@@ -55,7 +55,7 @@ class BAMReadsProcessor(
     """
 
     def __init__(self, bam_path, table):
-        #SpannerAsyncHelper.__init__(self)
+        #ASpannerManager.__init__(self)
         self.ref_file_ckpt = "ref_file_ckpt.json"
         self.bam_path = bam_path
 
