@@ -81,7 +81,7 @@ class BAMReadsProcessor(
 
     def classify_chrom(self, eattrs, nattrs, read):
         chrom = self.get_chrom(read.reference_name)
-        nattrs["id"] = read.read_name
+        nattrs["nid"] = read.read_name
         if chrom.startswith("ERCC"):
             eattrs["trt"] = chrom
             eattrs["trgt_layer"] = "ERCC"
@@ -132,7 +132,7 @@ class BAMReadsProcessor(
             ))
 
             eattrs.update(dict(
-                src=nattrs["id"],
+                src=nattrs["nid"],
                 src_layer=self.layer,
             ))
             #pprint.pp(nattrs)

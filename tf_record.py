@@ -23,7 +23,7 @@ def extract_gz_file(gz_file_path, output_dir):
     Extracts a .gz file to the specified output directory.
     """
     if not os.path.exists(output_dir):
-        os.makedirs(output_dir)
+        os.makedirs(output_dir, exist_ok=True)
 
     file_name = os.path.basename(gz_file_path).replace('.gz', '')
     output_file_path = os.path.join(output_dir, file_name)
