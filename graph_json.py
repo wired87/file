@@ -17,7 +17,7 @@ def graph_to_json(graph, metadata):
     """Converts a NetworkX graph to a JSON structure with custom metadata."""
     graph_json = {
         "nodes": [],
-        "edges": []
+        "EDGES": []
     }
 
     # Convert nodes (preserving structure)
@@ -31,7 +31,7 @@ def graph_to_json(graph, metadata):
         data["source"] = source
         data["target"] = target
         data["metadata"] = metadata  # Attach metadata
-        graph_json["edges"].append(data)
+        graph_json["EDGES"].append(data)
 
     return graph_json
 
@@ -43,27 +43,27 @@ def chunk_data(graph_json):
 
     chunks = []
     current_size = 0
-    current_chunk = {"nodes": [], "edges": []}
+    current_chunk = {"nodes": [], "EDGES": []}
 
     for node in graph_json["nodes"]:
         node_size = len(json.dumps(node).encode("utf-8"))
         if current_size + node_size > CHUNK_SIZE:
             chunks.append(current_chunk)
-            current_chunk = {"nodes": [], "edges": []}
+            current_chunk = {"nodes": [], "EDGES": []}
             current_size = 0
         current_chunk["nodes"].append(node)
         current_size += node_size
 
-    for edge in graph_json["edges"]:
+    for edge in graph_json["EDGES"]:
         edge_size = len(json.dumps(edge).encode("utf-8"))
         if current_size + edge_size > CHUNK_SIZE:
             chunks.append(current_chunk)
-            current_chunk = {"nodes": [], "edges": []}
+            current_chunk = {"nodes": [], "EDGES": []}
             current_size = 0
-        current_chunk["edges"].append(edge)
+        current_chunk["EDGES"].append(edge)
         current_size += edge_size
 
-    if current_chunk["nodes"] or current_chunk["edges"]:
+    if current_chunk["nodes"] or current_chunk["EDGES"]:
         chunks.append(current_chunk)
 
     return chunks

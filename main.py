@@ -40,7 +40,7 @@ class ChatGPTGraphExtractor:
             "nodes": [
                 {{"id": "<unique_node_identifier>", "attributes": ["<list_of_additional_fields>"]}}
             ],
-            "edges": [
+            "EDGES": [
                 {{"src": "<source_node_id>", "tgt": "<target_node_id>", "rel": "<relationship_type>"}}
             ]
         }}
@@ -75,7 +75,7 @@ class ChatGPTGraphExtractor:
                                 "description": "List of identified node fields.",
                                 "items": {"type": "string"}
                             },
-                            "edges": {
+                            "EDGES": {
                                 "type": "array",
                                 "description": "List of detected relationships between nodes.",
                                 "items": {
@@ -89,7 +89,7 @@ class ChatGPTGraphExtractor:
                                 }
                             }
                         },
-                        "required": ["nodes", "edges"]
+                        "required": ["nodes", "EDGES"]
                     }
                 }
             ],
@@ -113,7 +113,7 @@ class ChatGPTGraphExtractor:
                 attributes = {k: v for k, v in entry.items() if k != "id"}
                 nodes.add((node_id, attributes))
 
-            for edge_schema in schema.get("edges", []):
+            for edge_schema in schema.get("EDGES", []):
                 src, tgt, rel = edge_schema.get("src"), edge_schema.get("tgt"), edge_schema.get("rel")
                 if src and tgt:
                     edges.add((entry.get(src), entry.get(tgt), {"relationship": rel}))
