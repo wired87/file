@@ -37,7 +37,7 @@ def graph_to_json(graph, metadata):
 
 
 def chunk_data(graph_json):
-    """Splits JSON data into 9MB chunks while keeping valid JSON structure."""
+    """Splits JSON admin_data into 9MB chunks while keeping valid JSON structure."""
     json_str = json.dumps(graph_json)  # Convert entire graph to string
     json_bytes = json_str.encode("utf-8")
 

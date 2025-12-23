@@ -2,7 +2,7 @@
 General feature Format to Json
 
 describe the features of biological sequences, such as genes, exons, and regulatory elements.
-It provides a standardized way to annotate sequences and is widely used for genomic data.
+It provides a standardized way to annotate sequences and is widely used for genomic admin_data.
 """
 import json
 from pathlib import Path
@@ -45,11 +45,11 @@ def gff_gtf_to_json(file_path=src, json_file_path=target):
 
                 gff_data.append(entry)
 
-        # Save the parsed data as a JSON file
+        # Save the parsed admin_data as a JSON file
         with open(json_file_path, 'w') as json_file:
             json.dump(gff_data, json_file, indent=4)
 
-        print(f"Converted {file_type} data saved to {json_file_path}")
+        print(f"Converted {file_type} admin_data saved to {json_file_path}")
 
     except Exception as e:
         print(f"Error while converting GFF to JSON: {e}")

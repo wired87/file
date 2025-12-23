@@ -33,5 +33,5 @@ def write_tmp_local(tempdir_path, target_dir):
             os.makedirs(os.path.dirname(dest_path), exist_ok=True)
 
             # Datei kopieren
-            shutil.copy2(abs_path, dest_path) # Inhalt + Pfadstruktur erhalten
+            shutil.copy2(abs_path, dest_path)
     rm_tmp(tempdir_path)

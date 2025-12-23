@@ -34,7 +34,7 @@ def graph_to_jsonl(graph, metadata):
 
 
 def chunk_data(jsonl_data):
-    """Splits JSONL data into 9MB chunks."""
+    """Splits JSONL admin_data into 9MB chunks."""
     chunks = []
     current_chunk = []
     current_size = 0

@@ -2,7 +2,7 @@ import csv
 from io import StringIO
 
 def dict_2_csv(data:list[dict], keys):
-    print("Save local scv data")
+    print("Save local scv admin_data")
     with open("output.csv", "w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=keys)
         writer.writeheader()

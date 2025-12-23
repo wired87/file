@@ -31,7 +31,7 @@ def gbff_to_json(gbff_file_path=input, json_file_path=target):
         with open(json_file_path, "w") as json_file:
             json.dump(records, json_file, indent=4)
 
-        print(f"Converted GBFF data saved to {json_file_path}")
+        print(f"Converted GBFF admin_data saved to {json_file_path}")
 
     except Exception as e:
         print(f"Error while converting GBFF to JSON: {e}")

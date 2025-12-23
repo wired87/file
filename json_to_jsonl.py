@@ -14,7 +14,7 @@ def convert_json_to_jsonl(json_file_path, jsonl_file_path):
                 stuff_to_loop.append({key: value})
         return stuff_to_loop
     try:
-        # Load the JSON data
+        # Load the JSON admin_data
         with open(json_file_path, 'r') as json_file:
             data = json.load(json_file)
 

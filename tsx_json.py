@@ -1,5 +1,5 @@
 """
-"Write a highly efficient Python script to convert React code (in .tsx format) into a networkx.Graph data structure. The script should:
+"Write a highly efficient Python script to convert React code (in .tsx format) into a networkx.Graph admin_data structure. The script should:
 
 Take a list of project paths (nested folder structures containing React components, fnuctions,  and pages).
 Define Unique component- and page names as components  as nodes from .tsx files, correctly identifying React components, pages, imports, and their relationships.
@@ -13,7 +13,7 @@ Define edges for all meaningful relationships, such as:
 Component usage (imports → links to the files they are used in).
 Parent-child relationships (nesting of components).
 Prop drilling or context sharing.
-API calls or data dependencies.
+API calls or admin_data dependencies.
 Ensure accurate parsing, handling syntax differences, and deeply nested imports.
 Keep the script concise and well-commented for maintainability and efficiency."
 """

@@ -18,7 +18,7 @@ def dynamic_file_to_csv(file_type, ds_content, key=None):
         key (str, optional): Key for JSON normalization.
 
     Returns:
-        str: CSV data as a string, or None if an error occurs.
+        str: CSV admin_data as a string, or None if an error occurs.
     """
     try:
         file_type = file_type.lower()  # Normalize file type

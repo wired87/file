@@ -65,7 +65,7 @@ class H5ToJsonConverter:
         with h5py.File(self.h5_file, 'r') as f:
             data_dict = self._convert_h5_to_dict(f)
 
-        # Write JSON with UTF-8 encoding and ensure all data is serializable
+        # Write JSON with UTF-8 encoding and ensure all admin_data is serializable
         with open(output_json_file, 'w', encoding="utf-8") as json_file:
             json.dump(data_dict, json_file, ensure_ascii=False, indent=2)
 

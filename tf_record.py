@@ -183,7 +183,7 @@ def main(input_file, output_dir):
 
 
 if __name__ == "__main__":
-    input_file = "/uutils/models/deep_variant/data/output\\intermediate_results_dir\\call_variants_output-00000-of-00001.tfrecord\\call_variants_output-00000-of-00001.tfrecord"
-    output_file = "/uutils/models/deep_variant/data/output\\intermediate_results_dir\\call_variants_output.json"
+    input_file = "/uutils/models/deep_variant/admin_data/output\\intermediate_results_dir\\call_variants_output-00000-of-00001.tfrecord\\call_variants_output-00000-of-00001.tfrecord"
+    output_file = "/uutils/models/deep_variant/admin_data/output\\intermediate_results_dir\\call_variants_output.json"
 
     main(input_file, output_file)

@@ -32,7 +32,7 @@ def fasta_to_json(fasta_file, output_json_file):
                     current_metadata = parts[1] if len(parts) > 1 else ""  # The description comes after
                     current_sequence = []  # Reset sequence for the new entry
                 else:
-                    # Append the sequence data (nucleotide sequence)
+                    # Append the sequence admin_data (nucleotide sequence)
                     current_sequence.append(line)
 
             # Save the last sequence after exiting the loop

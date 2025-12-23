@@ -33,7 +33,7 @@ class ChatGPTGraphExtractor:
         sample_data = json.dumps(data[:5] if isinstance(data, list) else [data], indent=2)
 
         prompt = f"""
-        You are an expert in structured data extraction. Analyze the provided dataset sample and **identify a structured schema** for nodes and edges.
+        You are an expert in structured admin_data extraction. Analyze the provided dataset sample and **identify a structured schema** for nodes and edges.
 
         ### Expected JSON Output:
         {{
@@ -66,7 +66,7 @@ class ChatGPTGraphExtractor:
             functions=[
                 {
                     "name": "extract_graph_schema",
-                    "description": "Extracts nodes and edges schema from sample data.",
+                    "description": "Extracts nodes and edges schema from sample admin_data.",
                     "parameters": {
                         "type": "object",
                         "properties": {
@@ -103,7 +103,7 @@ class ChatGPTGraphExtractor:
 
     async def extract_nodes_and_edges(self, data, schema):
         """
-        Extracts nodes and edges from data using the identified schema.
+        Extracts nodes and edges from admin_data using the identified schema.
         """
         nodes, edges = set(), set()
 
@@ -179,10 +179,10 @@ class GraphBuilder:
 
     async def load_json_dynamically(self, path: str) -> list:
         """
-        Efficiently loads JSON by identifying the primary data list dynamically.
+        Efficiently loads JSON by identifying the primary admin_data list dynamically.
 
         :param path: JSON file path.
-        :return: Extracted data list.
+        :return: Extracted admin_data list.
         """
         with open(path, "r", encoding="utf-8") as file:
             sample_data = file.read(2048)  # Read the first 2048 bytes
@@ -192,21 +192,21 @@ class GraphBuilder:
             if isinstance(json_content, dict):
                 for key, value in json_content.items():
                     if isinstance(value, list) and len(value) > 0:
-                        return value  # Assume first detected list is the main data
+                        return value  # Assume first detected list is the main admin_data
             elif isinstance(json_content, list):
                 return json_content
 
-        raise ValueError("No valid data list found in JSON file.")
+        raise ValueError("No valid admin_data list found in JSON file.")
 
 
 
     async def load_data(self, source: str) -> Union[dict, list, pd.DataFrame]:
         """
-        Loads data dynamically from various sources, including files and URLs.
+        Loads admin_data dynamically from various sources, including files and URLs.
         Supports CSV, JSON, FASTA, HDF5, and more.
 
         :param source: File path or URL.
-        :return: Loaded data in a structured format.
+        :return: Loaded admin_data in a structured format.
         """
         if source.startswith("http"):
             return await self.fetch_from_url(source)
@@ -224,10 +224,10 @@ class GraphBuilder:
 
     async def fetch_from_url(self, url: str):
         """
-        Asynchronously fetches JSON or text data from a URL.
+        Asynchronously fetches JSON or text admin_data from a URL.
 
         :param url: Web URL.
-        :return: Parsed JSON or text data.
+        :return: Parsed JSON or text admin_data.
         """
         async with aiohttp.ClientSession() as session:
             async with session.get(url) as resp:
