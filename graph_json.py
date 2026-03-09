@@ -3,7 +3,7 @@ import networkx as nx
 from google.cloud import storage
 from tqdm import tqdm
 
-from utils.file import CHUNK_SIZE, BUCKET_NAME, OUTPUT_FOLDER
+from qbrain.utils.file import CHUNK_SIZE, BUCKET_NAME, OUTPUT_FOLDER
 
 
 def load_graph_from_json(json_path):

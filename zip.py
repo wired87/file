@@ -3,7 +3,7 @@ import shutil
 import zipfile
 from io import BytesIO
 
-from utils.file.temp import rm_tmp
+from qbrain.utils.file.temp import rm_tmp
 
 
 def zip_tempdir(tempdir_path, zip_dest: BytesIO or str):

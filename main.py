@@ -146,7 +146,7 @@ import networkx as nx
 from pathlib import Path
 from typing import Union
 
-from utils.file.flatten_dict import flatten_attributes
+from qbrain.utils.file.flatten_dict import flatten_attributes
 from openai import OpenAI
 
 

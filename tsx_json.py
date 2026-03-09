@@ -24,7 +24,7 @@ import re
 
 from pathlib import Path
 
-from utils.utils import Utils
+from qbrain.graph.utils import Utils
 
 # Entry paths to scan project_paths = [
 project_paths = [

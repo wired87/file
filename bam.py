@@ -40,7 +40,7 @@ import itertools
 import bamnostic
 
 """from ggoogle.spanner.acore import ASpannerManager
-from utils.utils import GraphUtils"""
+from qbrain.utils.utils import GraphUtils"""
 
 
 class BAMReadsProcessor(
