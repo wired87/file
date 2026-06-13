@@ -22,6 +22,7 @@ import requests
 
 import asyncio
 from pathlib import Path
+from typing import Union
 from urllib.parse import urljoin
 
 import httpx
@@ -40,6 +41,18 @@ class ParquetMaster:
         self.path = Path(path)
         # lazy parquet handle — only opened on first use (see `parquet` property)
         self._parquet = None
+
+    @staticmethod
+    def is_valid_parquet(path: Union[Path, str]) -> bool:
+        """True only when pyarrow can open the file (rejects HTML stubs / truncated downloads)."""
+        p = Path(path)
+        if not p.is_file() or p.stat().st_size < 8:
+            return False
+        try:
+            pq.ParquetFile(p)
+            return True
+        except Exception:
+            return False
 
     @property
     def parquet(self) -> pq.ParquetFile:
@@ -80,11 +93,13 @@ class ParquetMaster:
             exist_ok=True,
         )
 
-        # idempotent: a complete file from a prior run is reused
+        # idempotent: reuse only valid parquet — corrupt stubs are re-downloaded
         if output_path.exists():
-            print(f"skip (cached): {output_path}")
-            # always return the instance so callers can chain `read` / `iter_batches`
-            return cls(str(output_path))
+            if cls.is_valid_parquet(output_path):
+                print(f"skip (cached): {output_path}")
+                return cls(str(output_path))
+            print(f"invalid parquet — re-download: {output_path}")
+            output_path.unlink()
 
         # stage download in a sibling .part so partial writes never look complete
         part_path = output_path.with_suffix(output_path.suffix + ".part")
@@ -218,18 +233,14 @@ class ParquetMaster:
             exist_ok=True,
         )
 
-        # stage write in a sibling .tmp so an interrupted write cannot
-        # corrupt an already-valid parquet at the final path
         tmp_path = self.path.with_suffix(self.path.suffix + ".tmp")
 
-        # write the full table to the staging path
         pq.write_table(
             table,
             tmp_path,
             compression=compression,
         )
 
-        # atomic publish: only after a successful write_table do we replace
         _atomic_replace(tmp_path, self.path)
 
         # force the next `parquet` access to re-open the freshly written file
@@ -252,10 +263,14 @@ class ParquetMaster:
         async with semaphore:
 
             if output_file.exists():
-                print(f"skip: {output_file.name}")
-                return output_file
+                if ParquetMaster.is_valid_parquet(output_file):
+                    print(f"skip: {output_file.name}")
+                    return output_file
+                print(f"invalid parquet — re-download: {output_file.name}")
+                output_file.unlink()
 
-            print(f"↓ {output_file.name}")
+            # CHAR: ASCII-only status lines — Unicode arrows crash cp1252 consoles before download starts
+            print(f"downloading: {output_file.name}")
 
             # stage parallel downloads in `.part` files for the same atomicity guarantee
             part_file = output_file.with_suffix(output_file.suffix + ".part")
@@ -276,7 +291,7 @@ class ParquetMaster:
             # promote staging file to final name only after a clean response
             _atomic_replace(part_file, output_file)
 
-            print(f"✓ {output_file.name}")
+            print(f"done: {output_file.name}")
 
             return output_file
 
@@ -289,10 +304,15 @@ class ParquetMaster:
 
         visited = set()
         parquet_urls = []
+        # CHAR: never crawl outside the requested FTP subtree (prevents full-platform scans)
+        root_canon = root_url.rstrip("/") + "/"
 
         async def crawl(url: str):
 
             if url in visited:
+                return
+
+            if not url.startswith(root_canon) and url.rstrip("/") != root_url.rstrip("/"):
                 return
 
             visited.add(url)
@@ -413,11 +433,13 @@ class ParquetMaster:
                 return_exceptions=True,
             )
 
-            success = [
-                f
-                for f in files
-                if isinstance(f, Path)
-            ]
+            success: list[Path] = []
+            for item in files:
+                if isinstance(item, Path):
+                    success.append(item)
+                elif isinstance(item, BaseException):
+                    # CHAR: surface download failures instead of silent 0/N completed
+                    print(f"download error: {item}")
 
             print(
                 f"\ncompleted: "
