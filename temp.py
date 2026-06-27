@@ -17,7 +17,6 @@ def rm_tmp(temp_dir_path):
     print(f"removed {temp_dir_path}")
 
 
-
 def write_tmp_local(tempdir_path, target_dir):
     os.makedirs(target_dir, exist_ok=True)
 
